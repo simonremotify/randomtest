@@ -1,0 +1,34 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: 'Block #1'
+    task:
+      jobs:
+        - name: 'Job #1 (sleep 3)'
+          commands:
+            - sleep 3
+            - cache restore $SEMAPHORE_WORKFLOW_ID out
+            - 'if [ -d out ]; then ls -a out; fi'
+            - sleep 3
+            - mkdir -p out
+            - echo blah > out/file1
+        - name: 'Job #2'
+          commands:
+            - sleep 5
+            - cache restore $SEMAPHORE_WORKFLOW_ID out
+            - 'if [ -d out ]; then ls -a out; fi'
+            - sleep 3
+            - mkdir -p out
+            - echo blah > out/file2
+        - name: 'Job #3'
+          commands:
+            - sleep 1
+            - cache restore $SEMAPHORE_WORKFLOW_ID out
+            - 'if [ -d out ]; then ls -a out; fi'
+            - sleep 1
+            - mkdir -p out
+            - echo blah > out/file3
