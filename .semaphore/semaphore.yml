@@ -11,24 +11,27 @@ blocks:
         - name: 'Job #1 (sleep 3)'
           commands:
             - sleep 3
-            - cache restore $SEMAPHORE_WORKFLOW_ID out
+            - cache restore $SEMAPHORE_WORKFLOW_ID
             - 'if [ -d out ]; then ls -a out; fi'
             - sleep 3
             - mkdir -p out
             - echo blah > out/file1
+            - cache store $SEMAPHORE_WORKFLOW_ID out
         - name: 'Job #2'
           commands:
             - sleep 5
-            - cache restore $SEMAPHORE_WORKFLOW_ID out
+            - cache restore $SEMAPHORE_WORKFLOW_ID
             - 'if [ -d out ]; then ls -a out; fi'
             - sleep 3
             - mkdir -p out
             - echo blah > out/file2
+            - cache store $SEMAPHORE_WORKFLOW_ID out
         - name: 'Job #3'
           commands:
             - sleep 1
-            - cache restore $SEMAPHORE_WORKFLOW_ID out
+            - cache restore $SEMAPHORE_WORKFLOW_ID
             - 'if [ -d out ]; then ls -a out; fi'
             - sleep 1
             - mkdir -p out
             - echo blah > out/file3
+            - cache store $SEMAPHORE_WORKFLOW_ID out
